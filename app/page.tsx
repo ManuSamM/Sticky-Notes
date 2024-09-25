@@ -105,7 +105,7 @@ export default function Home() {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <h1 className="text-3xl font-bold text-center mb-6">Sticky Notes App</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Sticky Note App</h1>
 
       <div className="text-center mb-6">
         <textarea
