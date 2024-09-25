@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface Note {
   id: string;
@@ -13,23 +13,29 @@ interface Note {
   color: string;
 }
 
-const colors = ['bg-yellow-300', 'bg-green-300', 'bg-blue-300', 'bg-pink-300', 'bg-purple-300'];
+const colors = [
+  "bg-yellow-300",
+  "bg-green-300",
+  "bg-blue-300",
+  "bg-pink-300",
+  "bg-purple-300",
+];
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [noteText, setNoteText] = useState<string>('');
+  const [noteText, setNoteText] = useState<string>("");
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const savedNotes = localStorage.getItem('stickyNotes');
+    const savedNotes = localStorage.getItem("stickyNotes");
     if (savedNotes) {
       setNotes(JSON.parse(savedNotes));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('stickyNotes', JSON.stringify(notes));
+    localStorage.setItem("stickyNotes", JSON.stringify(notes));
   }, [notes]);
 
   const createNote = useCallback(() => {
@@ -46,44 +52,47 @@ export default function Home() {
     };
 
     setNotes((prevNotes) => [...prevNotes, newNote]);
-    setNoteText('');
+    setNoteText("");
   }, [noteText]);
 
   const deleteNote = useCallback((id: string) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   }, []);
 
-  const handleMouseDown = useCallback((
-    event: React.MouseEvent<HTMLDivElement>,
-    noteId: string
-  ) => {
-    event.preventDefault();
-    setDraggingId(noteId);
-    const noteElement = event.currentTarget;
-    const rect = noteElement.getBoundingClientRect();
-    setOffset({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
-  }, []);
+  const handleMouseDown = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>, noteId: string) => {
+      event.preventDefault();
+      setDraggingId(noteId);
+      const noteElement = event.currentTarget;
+      const rect = noteElement.getBoundingClientRect();
+      setOffset({
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      });
+    },
+    []
+  );
 
-  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    if (!draggingId) return;
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (!draggingId) return;
 
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === draggingId
-          ? {
-              ...note,
-              position: {
-                top: event.clientY - offset.y,
-                left: event.clientX - offset.x,
-              },
-            }
-          : note
-      )
-    );
-  }, [draggingId, offset]);
+      setNotes((prevNotes) =>
+        prevNotes.map((note) =>
+          note.id === draggingId
+            ? {
+                ...note,
+                position: {
+                  top: event.clientY - offset.y,
+                  left: event.clientX - offset.x,
+                },
+              }
+            : note
+        )
+      );
+    },
+    [draggingId, offset]
+  );
 
   const handleMouseUp = useCallback(() => {
     setDraggingId(null);
@@ -123,7 +132,7 @@ export default function Home() {
             style={{
               top: `${note.position.top}px`,
               left: `${note.position.left}px`,
-              touchAction: 'none',
+              touchAction: "none",
             }}
             onMouseDown={(e) => handleMouseDown(e, note.id)}
           >
