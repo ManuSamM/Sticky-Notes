@@ -19,7 +19,6 @@ const colors = [
   "bg-blue-300",
   "bg-pink-300",
   "bg-purple-300",
-  "bg-red-300",
 ];
 
 export default function Home() {
