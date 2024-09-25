@@ -112,7 +112,7 @@ export default function Home() {
           className="w-80 h-24 p-3 border-2 border-gray-300 rounded-md resize-none"
           value={noteText}
           onChange={(e) => setNoteText(e.target.value)}
-          placeholder="Write your note here..."
+          placeholder="Write your notes here..."
         />
         <div>
           <button
