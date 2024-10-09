@@ -101,7 +101,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen bg-gray-100 p-8"
+      className="min-h-screen bg-gray-100 p-8 overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
